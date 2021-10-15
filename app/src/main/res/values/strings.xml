@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Sunshine Weather</string>
+    <string name="details">Pressure = %s\nHumidity = %s</string>
+    <string name="settings">Settings</string>
+    <!-- Preference Titles -->
+    <string name="app_queries_header">Preferences</string>
+    <string name="temperature_unit_title">Temperature Unit</string>
+    <string name="location_title">Location</string>
+    <string name="forecast">Forecast</string>
+    <string name="today_weather_description">Today\'s weather description image</string>
+    <string name="today_text">Today</string>
+
+    <string name="def_location">Indore, India</string>
+    <string name="key_location">location</string>
+    <string name="key_unit">unit</string>
+
+    <string name="clouds">Clouds</string>
+    <string name="rain">Rain</string>
+
+    <string name="error_msg">Check your Internet Connection !</string>
+    <string name="refresh">Refresh</string>
+    <string name="about">About</string>
+    <string name="about_developer">About Developer</string>
+
+    <string name="developer_info">This app is developed by Soham Roy, B.Tech student of
+    IIT Indore, Mechanical Engineering Branch.</string>
+
+    <string name="intent_error">Device does not have an appropriate application to open the location</string>
+</resources>

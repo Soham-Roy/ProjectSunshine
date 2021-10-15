@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/app_queries_header">
+
+        <EditTextPreference
+            app:title="@string/location_title"
+            app:defaultValue="@string/def_location"
+            app:key="@string/key_location"
+            app:useSimpleSummaryProvider="true"/>
+
+        <ListPreference
+            app:defaultValue="celsius"
+            app:entries="@array/temp_entries"
+            app:entryValues="@array/temp_values"
+            app:key="@string/key_unit"
+            app:title="@string/temperature_unit_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/about">
+
+        <Preference
+            app:title="@string/about_developer"
+            app:summary="@string/developer_info"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

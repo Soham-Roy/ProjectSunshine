@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/clouds_wallpaper" />
+
+    <TextView
+        android:id="@+id/city_tv"
+        style="@style/TextAppearance.MaterialComponents.Headline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/left_margin_large"
+        tools:text="Indore, IN"
+        android:textColor="?colorOnPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/temperature_tv"
+        style="@style/TextAppearance.MaterialComponents.Headline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="30"
+        android:textStyle="bold"
+        android:textColor="?colorOnPrimary"
+        app:layout_constraintStart_toStartOf="@+id/city_tv"
+        app:layout_constraintTop_toBottomOf="@+id/city_tv" />
+
+    <TextView
+        android:id="@+id/temperature_unit_tv"
+        style="@style/TextAppearance.MaterialComponents.Headline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?colorOnPrimary"
+        android:textStyle="bold"
+        tools:text=" K"
+        app:layout_constraintStart_toEndOf="@id/temperature_tv"
+        app:layout_constraintTop_toTopOf="@id/temperature_tv"/>
+
+    <TextView
+        android:id="@+id/weather_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/temperature_tv"
+        tools:text="Clouds"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textColor="?colorOnPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/temperature_tv" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/normal_margin"
+        app:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_arrow_forward"
+        app:tint="?colorOnPrimary"
+        app:elevation="@dimen/fab_elevation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
