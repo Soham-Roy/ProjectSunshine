@@ -9,11 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.android.projectsunshine.R
+import com.example.android.projectsunshine.databinding.BottomSheetDialogLayoutBinding
 import com.example.android.projectsunshine.databinding.FragmentForecastBinding
 import com.example.android.projectsunshine.model.WeatherItem
 import com.example.android.projectsunshine.model.getDayDate
 import com.example.android.projectsunshine.ui.main.adapters.ItemClickListener
 import com.example.android.projectsunshine.ui.main.adapters.RecyclerAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ForecastFragment : Fragment(), ItemClickListener {
 
@@ -107,7 +109,32 @@ class ForecastFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClicked(position: Int) {
-        Toast.makeText(requireContext(), "Item at position $position clicked", Toast.LENGTH_SHORT).show()
+        showBottomSheet(position)
+    }
+
+    private fun showBottomSheet(position: Int) {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val binding = BottomSheetDialogLayoutBinding.inflate(layoutInflater)
+        val weatherItem = viewModel.getWeatherItemAtPos(position)
+        binding.apply {
+            with(weatherItem) {
+                temperatureTv.text = this.temperature.toString()
+                temperatureUnit.text = viewModel?.temperatureUnit?.value
+                binding.weatherDesc.text = this.weatherText
+                detailsTv.text = getString(R.string.details, this.pressure.toString(), this.humidity.toString())
+                when( this.weatherText ){
+                    getString(R.string.clouds) -> {
+                        binding.weatherIcon.setImageResource(R.drawable.cloudy_weather_icon)
+                    }
+                    getString(R.string.rain) -> {
+                        binding.weatherIcon.setImageResource(R.drawable.rainy_weather_icon)
+                    }
+                    else -> { binding.weatherIcon.setImageResource(R.drawable.sunny_weather_icon) }
+                }
+            }
+        }
+        bottomSheetDialog.setContentView(binding.root)
+        bottomSheetDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -107,6 +107,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
         }
     }
 
+    fun getWeatherItemAtPos(position : Int) : WeatherItem {
+        return _data.value?.get(position)!!
+    }
+
     override fun onCleared() {
         sharedPref.unregisterOnSharedPreferenceChangeListener(this)
         super.onCleared()

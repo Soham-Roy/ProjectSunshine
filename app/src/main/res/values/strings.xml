@@ -18,7 +18,6 @@
     <string name="rain">Rain</string>
 
     <string name="error_msg">Check your Internet Connection !</string>
-    <string name="refresh">Refresh</string>
     <string name="about">About</string>
     <string name="about_developer">About Developer</string>
 
@@ -26,4 +25,5 @@
     IIT Indore, Mechanical Engineering Branch.</string>
 
     <string name="intent_error">Device does not have an appropriate application to open the location</string>
+    <string name="refresh">Refresh</string>
 </resources>

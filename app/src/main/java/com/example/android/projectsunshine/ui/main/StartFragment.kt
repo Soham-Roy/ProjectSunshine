@@ -11,13 +11,12 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.example.android.projectsunshine.R
 import com.example.android.projectsunshine.databinding.FragmentStartBinding
 import java.security.Permission
@@ -40,14 +39,18 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         _bind = FragmentStartBinding.inflate(layoutInflater)
+        pref = PreferenceManager.getDefaultSharedPreferences(requireContext())
         locationString = pref.getString(getString(R.string.key_location), null)
         return bind.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         if ( locationString != null ) {
             openViewModel()
+            return
         }
         getLocation()
     }
@@ -56,13 +59,12 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
         Handler().postDelayed({
             viewModel.retrofitResponse.observe(viewLifecycleOwner) {
                 when (it) {
+                    RetrofitResponseListener.LOADING -> loadingUI()
                     RetrofitResponseListener.SUCCESS -> {
                         val action = StartFragmentDirections.actionStartFragmentToMainFragment()
                         findNavController().navigate(action)
                     }
-                    RetrofitResponseListener.FAILURE -> {
-                        errorUI()
-                    }
+                    RetrofitResponseListener.FAILURE -> errorUI()
                 }
             }
         }, 2000)
@@ -78,8 +80,6 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
@@ -103,7 +103,7 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
             )
         }
         else {
-
+//            locationManager.
         }
     }
 
@@ -133,6 +133,12 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
         }
     }
 
+    private fun loadingUI() {
+        bind.circularProgressIndicator.visibility = View.VISIBLE
+        bind.errorIcon.visibility = View.INVISIBLE
+        bind.errorText.visibility = View.INVISIBLE
+    }
+
     private fun errorUI() {
         bind.circularProgressIndicator.visibility = View.INVISIBLE
         bind.errorIcon.visibility = View.VISIBLE
@@ -145,5 +151,22 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         openViewModel()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.forecast_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when ( item.itemId ) {
+            R.id.settings_button -> {
+                val action = StartFragmentDirections.actionStartFragmentToSettingsFragment()
+                findNavController().navigate(action)
+            }
+            R.id.refresh_button -> {
+                viewModel.makeRetrofitCall()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
