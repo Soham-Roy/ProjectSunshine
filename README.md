@@ -16,8 +16,8 @@ Tools and the following Libraries. :-
 * Retrofit with Moshi Converter
 
 ## Setup
-1 Open Android Studio.
-2 Click on Import from Version Control and paste this link : https://github.com/Soham-Roy/ProjectSunshine.git
-3 Run the app on the emulator.
-4 To run on physical Android Device, connect the device using usb cable and allow usb debugging on the phone.
-5 Run the app using the Run button.
+1) Open Android Studio.
+2) Click on Import from Version Control and paste this link : https://github.com/Soham-Roy/ProjectSunshine.git
+3) Run the app on the emulator.
+4) To run on physical Android Device, connect the device using usb cable and allow usb debugging on the phone.
+5) Run the app using the Run button.
