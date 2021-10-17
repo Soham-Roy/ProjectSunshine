@@ -7,28 +7,33 @@
         <variable
             name="viewModel"
             type="com.example.android.projectsunshine.ui.main.MainViewModel" />
-        <variable
-            name="weather"
-            type="com.example.android.projectsunshine.model.WeatherItem" />
-        <variable
-            name="item"
-            type="com.example.android.projectsunshine.model.WeatherItemKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/date_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/margin_double"
+            tools:text="July 8, Sunday, 1:26 PM"
+            style="@style/TextAppearance.MaterialComponents.Headline5"/>
+
         <ImageView
             android:id="@+id/weather_icon"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginTop="@dimen/margin_double"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:contentDescription="@string/today_weather_description"
             android:src="@drawable/sunny_weather_icon"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/date_time_tv" />
 
         <TextView
             android:id="@+id/temperature_tv"

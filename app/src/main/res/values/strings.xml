@@ -17,6 +17,8 @@
     <string name="clouds">Clouds</string>
     <string name="rain">Rain</string>
 
+    <string name="sunrise_sunset_time">Sunrise : %s \nSunset : %s</string>
+
     <string name="error_msg">Check your Internet Connection !</string>
     <string name="about">About</string>
     <string name="about_developer">About Developer</string>

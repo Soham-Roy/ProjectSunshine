@@ -11,11 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.projectsunshine.R
 import com.example.android.projectsunshine.databinding.BottomSheetDialogLayoutBinding
 import com.example.android.projectsunshine.databinding.FragmentForecastBinding
+import com.example.android.projectsunshine.model.City
 import com.example.android.projectsunshine.model.WeatherItem
+import com.example.android.projectsunshine.model.getDateDay
 import com.example.android.projectsunshine.model.getDayDate
 import com.example.android.projectsunshine.ui.main.adapters.ItemClickListener
 import com.example.android.projectsunshine.ui.main.adapters.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ForecastFragment : Fragment(), ItemClickListener {
 
@@ -75,9 +79,17 @@ class ForecastFragment : Fragment(), ItemClickListener {
 
         viewModel.locationLiveData.observe(viewLifecycleOwner) {
             bind.cityTv.text = "${it.cityName}, ${it.country}"
+            setSunriseSunset(it)
         }
 
         bind.locationFab.setOnClickListener { openLocation() }
+    }
+
+    private fun setSunriseSunset(city: City) {
+        val dateFormat = SimpleDateFormat("h:mm:ss a")
+        bind.sunriseSunset.text = getString( R.string.sunrise_sunset_time,
+                            dateFormat.format( Date(city.sunriseUnix.toLong() * 1000) ),
+                            dateFormat.format( Date(city.sunsetUnix.toLong() * 1000) ) )
     }
 
     private fun openLocation() {
@@ -112,10 +124,10 @@ class ForecastFragment : Fragment(), ItemClickListener {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val binding = BottomSheetDialogLayoutBinding.inflate(layoutInflater)
         val weatherItem = viewModel.getWeatherItemAtPos(position)
+        binding.viewModel = viewModel
         binding.apply {
             with(weatherItem) {
                 temperatureTv.text = this.temperature.toString()
-                temperatureUnit.text = viewModel?.temperatureUnit?.value
                 binding.weatherDesc.text = this.weatherText
                 detailsTv.text = getString(R.string.details, this.pressure.toString(), this.humidity.toString())
                 when( this.weatherText ){
@@ -127,6 +139,7 @@ class ForecastFragment : Fragment(), ItemClickListener {
                     }
                     else -> { binding.weatherIcon.setImageResource(R.drawable.sunny_weather_icon) }
                 }
+                dateTimeTv.text = this.getDayDate()
             }
         }
         bottomSheetDialog.setContentView(binding.root)

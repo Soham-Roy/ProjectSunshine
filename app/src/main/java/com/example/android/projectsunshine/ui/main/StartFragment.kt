@@ -4,10 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
+import android.location.*
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -23,7 +20,8 @@ import java.security.Permission
 import java.util.*
 import java.util.function.Consumer
 
-class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener,
+    LocationListener {
 
     val REQUEST_CODE = 1
 
@@ -34,6 +32,8 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
     private var locationString : String ?= null
 
     private lateinit var pref : SharedPreferences
+
+    private lateinit var locationManager : LocationManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if ( locationString != null ) {
             openViewModel()
             return
@@ -71,7 +71,6 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
     }
 
     private fun getLocation() {
-        val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -80,11 +79,6 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
                 val permission = mutableListOf<String>()
                 permission.add(Manifest.permission.ACCESS_FINE_LOCATION)
                 permission.add(Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -103,8 +97,16 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
             )
         }
         else {
-//            locationManager.
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000, 0F, this
+            )
         }
+    }
+
+    override fun onLocationChanged(location: Location) {
+        getCityCountry(location)
+        locationManager.removeUpdates(this)
     }
 
     override fun onRequestPermissionsResult(
