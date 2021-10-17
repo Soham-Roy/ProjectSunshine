@@ -19,10 +19,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ForecastFragment : Fragment(), ItemClickListener {
 
-    companion object {
-        fun newInstance() = ForecastFragment()
-    }
-
     private lateinit var bind : FragmentForecastBinding
 
     private lateinit var todayWeather : WeatherItem

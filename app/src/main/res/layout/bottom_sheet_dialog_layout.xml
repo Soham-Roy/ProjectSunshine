@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.projectsunshine.ui.main.MainViewModel" />
+        <variable
+            name="weather"
+            type="com.example.android.projectsunshine.model.WeatherItem" />
+        <variable
+            name="item"
+            type="com.example.android.projectsunshine.model.WeatherItemKt" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginTop="@dimen/margin_double"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:contentDescription="@string/today_weather_description"
+            android:src="@drawable/sunny_weather_icon"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/temperature_tv"
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/weather_icon"
+            app:layout_constraintTop_toTopOf="@id/weather_icon"
+            tools:text="30.08" />
+
+        <TextView
+            android:id="@+id/temperature_unit"
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.temperatureUnit}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/temperature_tv"
+            app:layout_constraintTop_toTopOf="@id/temperature_tv"
+            tools:text=" K" />
+
+        <TextView
+            android:id="@+id/weather_desc"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/temperature_tv"
+            app:layout_constraintTop_toBottomOf="@+id/temperature_tv"
+            tools:text="Sunny" />
+
+        <TextView
+            android:id="@+id/details_tv"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_double"
+            android:layout_marginBottom="@dimen/margin_double"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weather_icon"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
