@@ -67,7 +67,7 @@
                 app:layout_constraintStart_toStartOf="@id/today_date"
                 android:layout_marginTop="@dimen/normal_margin"
                 tools:text="@string/sunrise_sunset_time"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+                style="@style/TextAppearance.MaterialComponents.Body1"/>
 
             <TextView
                 android:id="@+id/today_day"

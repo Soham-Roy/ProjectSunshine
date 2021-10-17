@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
         viewModel.locationLiveData.observe(viewLifecycleOwner) {
             bind.cityTv.text = "${it.cityName}, ${it.country}"
         }
-            bind.mainFab.setOnClickListener {
+        bind.mainFab.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToForecastFragment()
             findNavController().navigate(action)
         }

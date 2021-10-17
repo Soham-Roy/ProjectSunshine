@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.android.projectsunshine.ui.main.SettingsFragment"
-        android:label="Settings" />
+        android:label="" />
     <fragment
         android:id="@+id/startFragment"
         android:name="com.example.android.projectsunshine.ui.main.StartFragment"

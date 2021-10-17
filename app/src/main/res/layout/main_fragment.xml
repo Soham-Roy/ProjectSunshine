@@ -64,12 +64,12 @@
         android:id="@+id/main_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/normal_margin"
-        app:backgroundTint="@android:color/transparent"
         android:src="@drawable/ic_arrow_forward"
-        app:tint="?colorOnPrimary"
-        app:elevation="@dimen/fab_elevation"/>
+        app:backgroundTint="@android:color/transparent"
+        app:elevation="@dimen/fab_elevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/city_tv"
+        app:tint="?colorOnPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
 
     val REQUEST_CODE = 1
 
-    private var _bind : FragmentStartBinding ?= null
+    private var _bind : FragmentStartBinding?= null
     private val bind get() = _bind!!
 
     private val viewModel : MainViewModel by activityViewModels()
@@ -89,7 +89,7 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
 
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ) {
             locationManager.getCurrentLocation(
-                LocationManager.GPS_PROVIDER,
+                LocationManager.NETWORK_PROVIDER,
                 null, requireActivity().application.mainExecutor,
                 Consumer {
                     getCityCountry(it)
@@ -98,7 +98,7 @@ class StartFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
         }
         else {
             locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
+                LocationManager.NETWORK_PROVIDER,
                 1000, 0F, this
             )
         }
